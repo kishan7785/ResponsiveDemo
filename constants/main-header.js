@@ -2,7 +2,7 @@ import {View, Text, Pressable} from 'react-native';
 import MatIcon from 'react-native-vector-icons/MaterialIcons';
 import {GlobalStyles} from './constColors';
 import {scale} from 'react-native-size-matters';
-import Svg, {Path, G, Defs, clipPath, Rect} from 'react-native-svg';
+import Svg, {Path, G} from 'react-native-svg';
 import {normalizeText} from '../responsive-text';
 export default function MainHeader({navigation, title, onPress}) {
   return (
