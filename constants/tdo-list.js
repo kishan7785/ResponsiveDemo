@@ -3,13 +3,14 @@ import { scale } from "react-native-size-matters";
 import { normalizeText } from "../responsive-text";
 import { GlobalStyles } from "./constColors";
 import MatIcon from "react-native-vector-icons/MaterialIcons";
-import { Temp_Data } from "./temp-Data";
-export default function ListData({ Tdo_Name, Tdo_Taluka }) {
+export default function ListData({ Tdo_Name, Tdo_Taluka, index }) {
   const Initial = Tdo_Name.split(" ");
   const Temp =
-    Initial[0].charAt(0).toUpperCase() + Initial[1].charAt(0).toUpperCase();
-  // console.log("Tdo_Taluka:", Tdo_Taluka);
+    // Initial[0].charAt(0).toUpperCase() + Initial[1].charAt(0).toUpperCase();
+    Initial[0].charAt(Math.round(Initial[0].length / 2)).toUpperCase() +
+    Initial[1].charAt(Math.round(Initial[1].length / 2)).toUpperCase();
 
+  // console.log("Tdo_Taluka:", Tdo_Taluka);
   function getCount() {
     var counter = 0;
     Tdo_Taluka?.forEach((x) => {
@@ -92,23 +93,27 @@ export default function ListData({ Tdo_Name, Tdo_Taluka }) {
           >
             {Tdo_Taluka?.map((item, index) => {
               return (
-                <View  >
+                <View
+                  style={{
+                    backgroundColor: "#FEF7E5",
+                    justifyContent: "center",
+                    borderRadius: scale(5),
+                    padding: scale(5),
+                    marginRight: scale(8),
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <MatIcon name={"location-on"} size={scale(10)} color={'black'}/>
                   <Text
-                   key={index}
                     style={{
-                      backgroundColor: "#FEF7E5",
-                      justifyContent: "center",
-                      alignSelf: "center",
-                      alignItems: "center",
-                      borderRadius: scale(5),
                       fontSize: normalizeText(10),
-                      padding: scale(5),
-                      marginRight: scale(8),
                       color: "black",
+                      textAlign: "center",
+                      fontWeight: "bold",
                     }}
                   >
-                    <MatIcon name={"location-on"} size={scale(10)} />
-                    {item.Taluka_Name}
+                    {' '}{item.Taluka_Name}
                   </Text>
                 </View>
               );

@@ -11,17 +11,20 @@ import Svg, { Path, G } from "react-native-svg";
 import { GlobalStyles } from "../../constants/constColors";
 import { normalizeText } from "../../responsive-text";
 import MatIcon from "react-native-vector-icons/MaterialIcons";
-import ListData from "../../constants/list-item";
+import ListData from "../../constants/tdo-list";
 import { Temp_Data } from "../../constants/temp-Data";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 export default function TdoScreen() {
+  const [arrData, setArrayData] = useState([]);
+
   useEffect(() => {
-    // const a = getLength();
-    // console.log('a',a);
+    fetchData();
   }, []);
 
+  function fetchData() {
+    setArrayData(Temp_Data);
+  }
   function renderItem(itemData) {
-    // console.log('Town project:',itemData);
     return (
       <ListData
         Tdo_Name={itemData.item.Tdo_Name}
@@ -31,25 +34,25 @@ export default function TdoScreen() {
     );
   }
 
-  function getLength() {
-    let counter = 0;
-    Temp_Data.forEach((item) => {
-      item.Tdo_Taluka.forEach((x) => {
-        x.Taluka_Town.forEach((i) => {
-          console.log(
-            "i.Town_Projects.length",
-            item.Tdo_Name,
-            i.Town_Projects.length
-          );
-          counter = counter + i.Town_Projects.length;
-        });
-      });
-    });
-    return counter;
-  }
+  // function getLength() {
+  //   let counter = 0;
+  //   Temp_Data.forEach((item) => {
+  //     item.Tdo_Taluka.forEach((x) => {
+  //       x.Taluka_Town.forEach((i) => {
+  //         console.log(
+  //           "i.Town_Projects.length",
+  //           item.Tdo_Name,
+  //           i.Town_Projects.length
+  //         );
+  //         counter = counter + i.Town_Projects.length;
+  //       });
+  //     });
+  //   });
+  //   return counter;
+  // }
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
           borderBottomWidth: scale(1),
@@ -91,11 +94,11 @@ export default function TdoScreen() {
             maxWidth: "90%",
           }}
         />
-      </View>
+      </View> */}
       <FlatList
-        data={Temp_Data}
+        data={arrData}
         renderItem={renderItem}
-        keyExtractor={(item) => item.Id}
+        keyExtractor={(itm,inx) => String(inx)}
       />
     </SafeAreaView>
   );
