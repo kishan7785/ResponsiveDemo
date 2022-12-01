@@ -7,6 +7,7 @@ import { Temp_Data } from "../../constants/temp-Data";
 import { normalizeText } from "../../responsive-text";
 export default function TalukaScreen() {
   const [arrTaluka, setArrTaluka] = useState([]);
+  // console.log("arrTaluka:", arrTaluka);
 
   useEffect(() => {
     fetchData();
@@ -30,6 +31,7 @@ export default function TalukaScreen() {
       <TalukaList
         Taluka_Name={itemData.item.Taluka_Name}
         Taluka_Town={itemData.item.Taluka_Town}
+        // Tdo_Name={itemData.item.Tdo_Name}
       />
     );
   }

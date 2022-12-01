@@ -3,7 +3,7 @@ import { scale } from "react-native-size-matters";
 import { normalizeText } from "../responsive-text";
 import { GlobalStyles } from "./constColors";
 import MatIcon from "react-native-vector-icons/MaterialIcons";
-export default function ListData({ Tdo_Name, Tdo_Taluka, index }) {
+export default function ListData({ Tdo_Name, Tdo_Taluka }) {
   const Initial = Tdo_Name.split(" ");
   const Temp =
     // Initial[0].charAt(0).toUpperCase() + Initial[1].charAt(0).toUpperCase();
@@ -104,7 +104,11 @@ export default function ListData({ Tdo_Name, Tdo_Taluka, index }) {
                     alignItems: "center",
                   }}
                 >
-                  <MatIcon name={"location-on"} size={scale(10)} color={'black'}/>
+                  <MatIcon
+                    name={"location-on"}
+                    size={scale(10)}
+                    color={"black"}
+                  />
                   <Text
                     style={{
                       fontSize: normalizeText(10),
@@ -113,7 +117,8 @@ export default function ListData({ Tdo_Name, Tdo_Taluka, index }) {
                       fontWeight: "bold",
                     }}
                   >
-                    {' '}{item.Taluka_Name}
+                    {" "}
+                    {item.Taluka_Name}
                   </Text>
                 </View>
               );

@@ -35,6 +35,7 @@ export const Temp_Data = [
           },
           {
             Town_Name: "Rajkot-1",
+
             Town_Projects: [
               {
                 Project_Name: "School Painting",
@@ -153,7 +154,6 @@ export const Temp_Data = [
               },
             ],
           },
-          
         ],
       },
       {
@@ -264,6 +264,7 @@ export const Temp_Data = [
         Taluka_Image: null,
         Taluka_Town: [
           {
+            Tdo_Name: "Rajesh Aal",
             Town_Name: "Ambaradi",
             Town_Projects: [
               {
@@ -307,8 +308,6 @@ export const Temp_Data = [
         Taluka_Image: null,
         Taluka_Town: [],
       },
-      
-      
     ],
   },
 ];

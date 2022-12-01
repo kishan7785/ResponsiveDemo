@@ -4,11 +4,10 @@ import { normalizeText } from "../responsive-text";
 import { GlobalStyles } from "./constColors";
 import MatIcon from "react-native-vector-icons/MaterialIcons";
 import AwsIcon from "react-native-vector-icons/FontAwesome";
-export default function TalukaList({ Taluka_Name, Taluka_Town, Tdo_Name }) {
-  // console.log("Tdo_Name:", Tdo_Name);
-  const Initial = Taluka_Name.split(" ");
+export default function TownList({ Town_Name, Town_Projects }) {
+  // console.log("Town_Projects:", Town_Projects);
+  const Initial = Town_Name.split(" ");
   if (Initial.length > 1) {
-    
     var Temp =
       Initial[0].charAt(0).toUpperCase() + Initial[1].charAt(0).toUpperCase();
   } else {
@@ -16,12 +15,10 @@ export default function TalukaList({ Taluka_Name, Taluka_Town, Tdo_Name }) {
       Initial[0].charAt(0).toUpperCase() +
       Initial[0].charAt(Initial[0].length / 2).toUpperCase();
   }
-  // console.log("Tdo_Taluka:", Tdo_Taluka);
-  //   console.log("Taluka_Name:", Taluka_Name);
 
   function getCount() {
     var counter = 0;
-    Taluka_Town?.forEach((x) => {
+    Town_Projects?.forEach((x) => {
       counter = counter + x?.Town_Projects.length;
     });
     return counter;
@@ -87,9 +84,9 @@ export default function TalukaList({ Taluka_Name, Taluka_Town, Tdo_Name }) {
               paddingLeft: scale(20),
             }}
           >
-            {Taluka_Name}
+            {Town_Name}
           </Text>
-          <View
+          {/* <View
             style={{
               paddingLeft: scale(20),
               flexDirection: "row",
@@ -142,10 +139,10 @@ export default function TalukaList({ Taluka_Name, Taluka_Town, Tdo_Name }) {
                   fontWeight: "bold",
                 }}
               >
-                {"  "}Tdo 's
+                {"  "}{Tdo_Name}
               </Text>
             </View>
-          </View>
+          </View> */}
         </View>
 
         <View
@@ -169,7 +166,7 @@ export default function TalukaList({ Taluka_Name, Taluka_Town, Tdo_Name }) {
               fontSize: normalizeText(12),
             }}
           >
-            {getCount()}
+            {Town_Projects.length}
           </Text>
         </View>
       </View>

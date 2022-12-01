@@ -1,11 +1,44 @@
-import {Text, View,SafeAreaView,TextInput} from 'react-native';
+import { useEffect, useState } from "react";
+import { Text, View, SafeAreaView, TextInput, FlatList } from "react-native";
 import { scale } from "react-native-size-matters";
 import Svg, { Path, G } from "react-native-svg";
+import ProjectList from "../../constants/project-list";
+import { Temp_Data } from "../../constants/temp-Data";
 import { normalizeText } from "../../responsive-text";
 export default function ProjectScreen() {
+  const [arrTown, setArrTown] = useState([]);
+  // console.log("arr:", arrTown);
+  useEffect(() => {
+    fetchData();
+  }, []);
+  function fetchData() {
+    let arr = [];
+    Temp_Data.forEach((item, index) => {
+      item?.Tdo_Taluka?.forEach((x, i) => {
+        x?.Taluka_Town?.forEach((j, ix) => {
+          j?.Town_Projects?.forEach((k) => {
+            arr.push(k);
+          });
+        });
+      });
+    });
+    // console.log('fetchData: arr: ',arr);
+    setArrTown(arr);
+  }
+  function renderItem(itemData) {
+    // console.log("itemData:", itemData);
+    return (
+      <ProjectList
+        Project_Name={itemData.item.Project_Name}
+        Project_Due_Date={itemData.item.Project_Due_Date}
+        Project_Status_Value={itemData.item.Project_Status_Value}
+      />
+    );
+  }
+
   return (
-    <SafeAreaView style={{ flex: 1, }}>
-    <View
+    <SafeAreaView style={{ flex: 1 }}>
+      {/* <View
       style={{
         flexDirection: "row",
         borderBottomWidth: scale(1),
@@ -40,8 +73,14 @@ export default function ProjectScreen() {
       </Svg>
       <TextInput placeholder="Search" style={{fontSize:normalizeText(16),marginHorizontal:scale(3),overflow:'hidden',maxWidth:'90%'}}
        />
-    </View>
-  </SafeAreaView>
+    </View> */}
+      <View>
+        <FlatList
+          data={arrTown}
+          renderItem={renderItem}
+          keyExtractor={(itm, inx) => inx}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
-
