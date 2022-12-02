@@ -7,7 +7,7 @@ import TownList from "../../constants/town-list";
 import { normalizeText } from "../../responsive-text";
 export default function TownScreen() {
   const [arrTown, setArrTown] = useState([]);
-  // console.log("arr:", arrTown);
+  console.log("arr:", arrTown);
   useEffect(() => {
     fetchData();
   }, []);
@@ -34,14 +34,15 @@ export default function TownScreen() {
   }
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {/* <View
+      <View
       style={{
         flexDirection: "row",
-        borderBottomWidth: scale(1),
-        borderBottomColor: "#ccc",
-        width: "89%",
-        alignItems: "center",
-        margin: scale(20),
+          borderBottomWidth: scale(1),
+          borderBottomColor: "#ccc",
+          width: "89%",
+          alignItems: "center",
+          marginTop: scale(20),
+          marginHorizontal: scale(20),
 
       }}
     >
@@ -69,8 +70,8 @@ export default function TownScreen() {
       </Svg>
       <TextInput placeholder="Search" style={{fontSize:normalizeText(16),marginHorizontal:scale(3),overflow:'hidden',maxWidth:'90%'}}
        />
-    </View> */}
-      <View>
+    </View>
+      <View style={{flex:1}}>
         <FlatList
           data={arrTown}
           renderItem={renderItem}

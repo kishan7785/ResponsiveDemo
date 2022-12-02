@@ -37,14 +37,15 @@ export default function TalukaScreen() {
   }
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {/* <View
+      <View
         style={{
           flexDirection: "row",
           borderBottomWidth: scale(1),
           borderBottomColor: "#ccc",
           width: "89%",
           alignItems: "center",
-          margin: scale(20),
+          marginTop: scale(20),
+          marginHorizontal: scale(20),
         }}
       >
         <Svg
@@ -78,8 +79,8 @@ export default function TalukaScreen() {
             maxWidth: "90%",
           }}
         />
-      </View> */}
-      <View>
+      </View>
+      <View style={{ flex: 1 }}>
         <FlatList
           data={arrTaluka}
           keyExtractor={(itm, inx) => String(inx)}

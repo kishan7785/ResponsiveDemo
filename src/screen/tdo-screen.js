@@ -52,7 +52,7 @@ export default function TdoScreen() {
   // }
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {/* <View
+      <View
         style={{
           flexDirection: "row",
           borderBottomWidth: scale(1),
@@ -94,7 +94,7 @@ export default function TdoScreen() {
             maxWidth: "90%",
           }}
         />
-      </View> */}
+      </View>
       <FlatList
         data={arrData}
         renderItem={renderItem}

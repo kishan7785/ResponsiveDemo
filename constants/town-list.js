@@ -86,7 +86,7 @@ export default function TownList({ Town_Name, Town_Projects }) {
           >
             {Town_Name}
           </Text>
-          {/* <View
+          <View
             style={{
               paddingLeft: scale(20),
               flexDirection: "row",
@@ -105,7 +105,7 @@ export default function TownList({ Town_Name, Town_Projects }) {
                 alignItems: "center",
               }}
             >
-              <MatIcon name={"home"} size={scale(10)} color={"black"} />
+              {/* <MatIcon name={"home"} size={scale(10)} color={"black"} /> */}
               <Text
                 style={{
                   fontSize: normalizeText(10),
@@ -115,34 +115,11 @@ export default function TownList({ Town_Name, Town_Projects }) {
                 }}
               >
                 {"  "}
-                {Taluka_Town.length} Town
+                Taluka ?
               </Text>
             </View>
-            <View
-              style={{
-                backgroundColor: "#E5F4Fa",
-                justifyContent: "center",
-                borderRadius: scale(5),
-                padding: scale(5),
-                marginRight: scale(8),
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <AwsIcon name={"graduation-cap"} size={scale(10)} color={"black"} />
-
-              <Text
-                style={{
-                  fontSize: normalizeText(10),
-                  color: "black",
-                  textAlign: "center",
-                  fontWeight: "bold",
-                }}
-              >
-                {"  "}{Tdo_Name}
-              </Text>
-            </View>
-          </View> */}
+     
+          </View>
         </View>
 
         <View

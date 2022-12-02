@@ -5,10 +5,15 @@ import { GlobalStyles } from "./constColors";
 import MatIcon from "react-native-vector-icons/MaterialIcons";
 export default function ListData({ Tdo_Name, Tdo_Taluka }) {
   const Initial = Tdo_Name.split(" ");
-  const Temp =
-    // Initial[0].charAt(0).toUpperCase() + Initial[1].charAt(0).toUpperCase();
-    Initial[0].charAt(Math.round(Initial[0].length / 2)).toUpperCase() +
-    Initial[1].charAt(Math.round(Initial[1].length / 2)).toUpperCase();
+  if (Initial.length > 1) {
+    
+    var Temp =
+      Initial[0].charAt(0).toUpperCase() + Initial[1].charAt(0).toUpperCase();
+  } else {
+    var Temp =
+      Initial[0].charAt(0).toUpperCase() +
+      Initial[0].charAt(Initial[0].length / 2).toUpperCase();
+  }
 
   // console.log("Tdo_Taluka:", Tdo_Taluka);
   function getCount() {
