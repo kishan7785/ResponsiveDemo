@@ -1,5 +1,4 @@
 
-// change done
 import { useEffect, useState } from "react";
 import { Text, View, SafeAreaView, TextInput, FlatList } from "react-native";
 import { scale } from "react-native-size-matters";
