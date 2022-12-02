@@ -4,7 +4,7 @@ import { normalizeText } from "../responsive-text";
 import { GlobalStyles } from "./constColors";
 import MatIcon from "react-native-vector-icons/MaterialIcons";
 import AwsIcon from "react-native-vector-icons/FontAwesome";
-export default function TownList({ Town_Name, Town_Projects }) {
+export default function TownList({ Town_Name, Town_Projects,Taluka_Name }) {
   // console.log("Town_Projects:", Town_Projects);
   const Initial = Town_Name.split(" ");
   if (Initial.length > 1) {
@@ -114,8 +114,8 @@ export default function TownList({ Town_Name, Town_Projects }) {
                   fontWeight: "bold",
                 }}
               >
-                {"  "}
-                Taluka ?
+                {Taluka_Name}
+                
               </Text>
             </View>
      

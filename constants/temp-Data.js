@@ -188,11 +188,6 @@ export const Temp_Data = [
           },
         ],
       },
-      {
-        Taluka_Name: "Rajkot Urban",
-        Taluka_Image: null,
-        Taluka_Town: [],
-      },
     ],
   },
   {
@@ -264,7 +259,6 @@ export const Temp_Data = [
         Taluka_Image: null,
         Taluka_Town: [
           {
-            Tdo_Name: "Rajesh Aal",
             Town_Name: "Ambaradi",
             Town_Projects: [
               {
@@ -305,22 +299,6 @@ export const Temp_Data = [
       },
       {
         Taluka_Name: "Rajkot Urban",
-        Taluka_Image: null,
-        Taluka_Town: [],
-      },
-    ],
-  },
-  {
-    Tdo_Name: "Jay Moraniya",
-    Tdo_Image: null,
-    Tdo_Taluka: [
-      {
-        Taluka_Name: "Sardhar",
-        Taluka_Image: null,
-        Taluka_Town: [],
-      },
-      {
-        Taluka_Name: "Sapar",
         Taluka_Image: null,
         Taluka_Town: [],
       },

@@ -45,22 +45,22 @@ export default function Routes() {
         <TopTab.Screen
           name={"Tab-Tdo"}
           component={TdoScreen}
-          options={{ title: "TDO" }}
+          options={{ title: "TDO",fontSize:normalizeText(12) }}
         />
         <TopTab.Screen
           name={"Tab-Taluka"}
           component={TalukaScreen}
-          options={{ title: "Taluka" }}
+          options={{ title: "Taluka",fontSize:normalizeText(12) }}
         />
         <TopTab.Screen
           name={"Tab-Town"}
           component={TownScreen}
-          options={{ title: "Town" }}
+          options={{ title: "Town",fontSize:normalizeText(12) }}
         />
         <TopTab.Screen
           name={"Tab-Projects"}
           component={ProjectScreen}
-          options={{ title: "Projects" }}
+          options={{ title: "Projects",fontSize:normalizeText(12) }}
         />
       </TopTab.Navigator>
     );

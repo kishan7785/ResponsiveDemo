@@ -142,7 +142,7 @@ export default function TalukaList({ Taluka_Name, Taluka_Town, Tdo_Name }) {
                   fontWeight: "bold",
                 }}
               >
-                {"  "}Tdo 's
+                {"  "}{Tdo_Name}
               </Text>
             </View>
           </View>

@@ -8,6 +8,8 @@ export default function ProjectList({
   Project_Name,
   Project_Due_Date,
   Project_Status_Value,
+  Town_Name,
+  Taluka_Name
 }) {
   // console.log("Town_Projects:", Town_Projects);
 
@@ -102,7 +104,7 @@ export default function ProjectList({
                 }}
               >
                 {"  "}
-                Location
+                {Town_Name}{","}{Taluka_Name}
               </Text>
             </View>
             <View

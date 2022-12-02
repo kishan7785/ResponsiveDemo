@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Text, View, SafeAreaView, TextInput, FlatList } from "react-native";
+import { concat } from "react-native-reanimated";
 import { scale } from "react-native-size-matters";
 import Svg, { Path, G } from "react-native-svg";
 import TalukaList from "../../constants/taluka-list";
@@ -9,84 +10,64 @@ export default function TalukaScreen() {
   const [arrTaluka, setArrTaluka] = useState([]);
   // console.log("arrTaluka:", arrTaluka);
 
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  // function fetchData() {
+  //   let arr = [];
+  //   Temp_Data.forEach((item, index) => {
+  //     item?.Tdo_Taluka?.forEach((x, i) => {
+  //       arr.push(x);
+  //     });
+  //   });
+  //   // console.log('fetchData: arr: ',arr);
+  //   setArrTaluka(arr);
+  // }
+
+  // console.log("reuslt:", result);
   useEffect(() => {
     fetchData();
   }, []);
 
   function fetchData() {
-    let arr = [];
-    Temp_Data.forEach((item, index) => {
-      item?.Tdo_Taluka?.forEach((x, i) => {
-        arr.push(x);
+    // 1 Temp_Data
+    // 2 data as per tab
+    // 3 combined all data in on Object
+    // 4 push above
+    // 5 Local variable no global
+
+    let data = [];
+    Temp_Data.forEach((item) => {
+      item?.Tdo_Taluka?.forEach((x) => {
+        data.push(x), data.push(item.Tdo_Name);
+        // arr.push(item.Tdo_Name), arr.push(x);
+        // let final = concat(arr);
+        setArrTaluka(data);
       });
     });
-    // console.log('fetchData: arr: ',arr);
-    setArrTaluka(arr);
   }
+  console.log("arrTaluka:", arrTaluka);
 
-  // console.log("reuslt:", result);
   function renderItem(itemData) {
     // console.log("itemData:", itemData);
     return (
       <TalukaList
         Taluka_Name={itemData.item.Taluka_Name}
         Taluka_Town={itemData.item.Taluka_Town}
-        // Tdo_Name={itemData.item.Tdo_Name}
+        Tdo_Name={itemData.item.Tdo_Name}
       />
     );
   }
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View
-        style={{
-          flexDirection: "row",
-          borderBottomWidth: scale(1),
-          borderBottomColor: "#ccc",
-          width: "89%",
-          alignItems: "center",
-          marginTop: scale(20),
-          marginHorizontal: scale(20),
-        }}
-      >
-        <Svg
-          width={scale(16)}
-          height={scale(16)}
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <Path
-            d="M7.66668 14C11.1645 14 14 11.1645 14 7.66668C14 4.16887 11.1645 1.33334 7.66668 1.33334C4.16887 1.33334 1.33334 4.16887 1.33334 7.66668C1.33334 11.1645 4.16887 14 7.66668 14Z"
-            stroke="#AEAEAE"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <Path
-            d="M14.6667 14.6667L13.3333 13.3333"
-            stroke="#AEAEAE"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </Svg>
-        <TextInput
-          placeholder="Search"
-          style={{
-            fontSize: normalizeText(16),
-            marginHorizontal: scale(3),
-            overflow: "hidden",
-            maxWidth: "90%",
-          }}
-        />
-      </View>
-      <View style={{ flex: 1 }}>
+      {/* <View style={{ flex: 1 }}>
         <FlatList
           data={arrTaluka}
           keyExtractor={(itm, inx) => String(inx)}
           renderItem={renderItem}
         />
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 }
