@@ -36,16 +36,20 @@ export default function TalukaScreen() {
     // 3 combined all data in on Object
     // 4 push above
     // 5 Local variable no global
-
     let data = [];
     Temp_Data.forEach((item) => {
       item?.Tdo_Taluka?.forEach((x) => {
-        data.push(x), data.push(item.Tdo_Name);
+        // data[0].finalData.push(x),
+        //   data[0].finalData[0].Name.push(item.Tdo_Name);
         // arr.push(item.Tdo_Name), arr.push(x);
         // let final = concat(arr);
-        setArrTaluka(data);
+        data.push({
+          name: item.Tdo_Name,
+          data: x,
+        });
       });
     });
+    setArrTaluka(data);
   }
   console.log("arrTaluka:", arrTaluka);
 
@@ -53,21 +57,21 @@ export default function TalukaScreen() {
     // console.log("itemData:", itemData);
     return (
       <TalukaList
-        Taluka_Name={itemData.item.Taluka_Name}
-        Taluka_Town={itemData.item.Taluka_Town}
-        Tdo_Name={itemData.item.Tdo_Name}
+        Taluka_Name={itemData.item.data.Taluka_Name}
+        Taluka_Town={itemData.item.data.Taluka_Town}
+        Tdo_Name={itemData.item.name}
       />
     );
   }
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {/* <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <FlatList
           data={arrTaluka}
           keyExtractor={(itm, inx) => String(inx)}
           renderItem={renderItem}
         />
-      </View> */}
+      </View>
     </SafeAreaView>
   );
 }

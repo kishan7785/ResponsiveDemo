@@ -3,7 +3,7 @@ export const Temp_Data = [
     Tdo_Name: "K.G. Chaudhari",
     Tdo_Image: null,
     Tdo_Taluka: [
-      {
+      { 
         Taluka_Name: "Rajkot East",
         Taluka_Image: null,
         Taluka_Town: [

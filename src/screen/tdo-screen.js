@@ -50,13 +50,13 @@ export default function TdoScreen() {
   //   });
   //   return counter;
   // }
+  console.log("ArrData:", arrData);
   return (
     <SafeAreaView style={{ flex: 1 }}>
-     
       <FlatList
         data={arrData}
         renderItem={renderItem}
-        keyExtractor={(itm,inx) => String(inx)}
+        keyExtractor={(itm, inx) => String(inx)}
       />
     </SafeAreaView>
   );
