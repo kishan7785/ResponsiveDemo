@@ -3,28 +3,16 @@ import { scale } from "react-native-size-matters";
 import { normalizeText } from "../responsive-text";
 import { GlobalStyles } from "./constColors";
 import MatIcon from "react-native-vector-icons/MaterialIcons";
-export default function ListData({ Tdo_Name, Tdo_Taluka }) {
-  const Initial = Tdo_Name.split(" ");
-  if (Initial.length > 1) {
-    
-    var Temp =
-      Initial[0].charAt(0).toUpperCase() + Initial[1].charAt(0).toUpperCase();
-  } else {
-    var Temp =
-      Initial[0].charAt(0).toUpperCase() +
-      Initial[0].charAt(Initial[0].length / 2).toUpperCase();
-  }
-
-  // console.log("Tdo_Taluka:", Tdo_Taluka);
-  function getCount() {
-    var counter = 0;
-    Tdo_Taluka?.forEach((x) => {
-      x?.Taluka_Town?.forEach((i) => {
-        counter = counter + i?.Town_Projects.length;
-      });
-    });
-    return counter;
-  }
+import AwsIcon from "react-native-vector-icons/FontAwesome";
+export default function ListData({ item = {}, index = -1 }) {
+  const {
+    title = "",
+    profile = "",
+    lable_one = "",
+    lable_two = "",
+    count = -1,
+    display_charactor = "",
+  } = item;
 
   return (
     <View
@@ -67,15 +55,13 @@ export default function ListData({ Tdo_Name, Tdo_Taluka }) {
               color: GlobalStyles.colors.mainC,
             }}
           >
-            {Temp}
+            {profile}
           </Text>
         </View>
         <View
           style={{
             flex: 1,
             flexDirection: "column",
-            // paddingHorizontal: scale(20),
-            // paddingTop: scale(5),
           }}
         >
           <Text
@@ -86,8 +72,9 @@ export default function ListData({ Tdo_Name, Tdo_Taluka }) {
               paddingLeft: scale(20),
             }}
           >
-            {Tdo_Name}
+            {title}
           </Text>
+
           <View
             style={{
               paddingLeft: scale(20),
@@ -96,38 +83,52 @@ export default function ListData({ Tdo_Name, Tdo_Taluka }) {
               marginVertical: scale(5),
             }}
           >
-            {Tdo_Taluka?.map((item, index) => {
-              return (
-                <View
-                  style={{
-                    backgroundColor: "#FEF7E5",
-                    justifyContent: "center",
-                    borderRadius: scale(5),
-                    padding: scale(5),
-                    marginRight: scale(8),
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <MatIcon
-                    name={"location-on"}
-                    size={scale(10)}
-                    color={"black"}
-                  />
-                  <Text
-                    style={{
-                      fontSize: normalizeText(10),
-                      color: "black",
-                      textAlign: "center",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {" "}
-                    {item.Taluka_Name}
-                  </Text>
-                </View>
-              );
-            })}
+            <View
+              style={{
+                backgroundColor: "#FEF7E5",
+                justifyContent: "center",
+                borderRadius: scale(5),
+                padding: scale(5),
+                marginRight: scale(8),
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <MatIcon name={"location-on"} size={scale(10)} color={"black"} />
+              <Text
+                style={{
+                  fontSize: normalizeText(10),
+                  color: "black",
+                  textAlign: "center",
+                  fontWeight: "bold",
+                }}
+              >
+                {lable_one}
+              </Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: "#FEF7E5",
+                justifyContent: "center",
+                borderRadius: scale(5),
+                padding: scale(5),
+                marginRight: scale(8),
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <MatIcon name={"location-on"} size={scale(10)} color={"black"} />
+              <Text
+                style={{
+                  fontSize: normalizeText(10),
+                  color: "black",
+                  textAlign: "center",
+                  fontWeight: "bold",
+                }}
+              >
+                {lable_two}
+              </Text>
+            </View>
           </View>
         </View>
 
@@ -152,7 +153,7 @@ export default function ListData({ Tdo_Name, Tdo_Taluka }) {
               fontSize: normalizeText(12),
             }}
           >
-            {getCount()}
+            {count}
           </Text>
         </View>
       </View>

@@ -1,9 +1,10 @@
 export const Temp_Data = [
   {
+    Id: 1,
     Tdo_Name: "K.G. Chaudhari",
     Tdo_Image: null,
     Tdo_Taluka: [
-      { 
+      {
         Taluka_Name: "Rajkot East",
         Taluka_Image: null,
         Taluka_Town: [
@@ -109,6 +110,7 @@ export const Temp_Data = [
     ],
   },
   {
+    Id: 2,
     Tdo_Name: "Jayesh Lakhiya",
     Tdo_Image: null,
     Tdo_Taluka: [
@@ -191,6 +193,7 @@ export const Temp_Data = [
     ],
   },
   {
+    Id: 3,
     Tdo_Name: "K.V Bhatti",
     Tdo_Image: null,
     Tdo_Taluka: [
@@ -207,6 +210,7 @@ export const Temp_Data = [
     ],
   },
   {
+    Id: 4,
     Tdo_Name: "Rajesh Aal",
     Tdo_Image: null,
     Tdo_Taluka: [
@@ -289,6 +293,7 @@ export const Temp_Data = [
     ],
   },
   {
+    Id: 5,
     Tdo_Name: "Sandeep Verma",
     Tdo_Image: null,
     Tdo_Taluka: [

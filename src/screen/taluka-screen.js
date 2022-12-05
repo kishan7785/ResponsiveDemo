@@ -4,6 +4,7 @@ import { concat } from "react-native-reanimated";
 import { scale } from "react-native-size-matters";
 import Svg, { Path, G } from "react-native-svg";
 import TalukaList from "../../constants/taluka-list";
+import ListData from "../../constants/tdo-list";
 import { Temp_Data } from "../../constants/temp-Data";
 import { normalizeText } from "../../responsive-text";
 export default function TalukaScreen() {
@@ -31,46 +32,62 @@ export default function TalukaScreen() {
   }, []);
 
   function fetchData() {
-    // 1 Temp_Data
-    // 2 data as per tab
-    // 3 combined all data in on Object
-    // 4 push above
-    // 5 Local variable no global
-    let data = [];
-    Temp_Data.forEach((item) => {
-      item?.Tdo_Taluka?.forEach((x) => {
-        // data[0].finalData.push(x),
-        //   data[0].finalData[0].Name.push(item.Tdo_Name);
-        // arr.push(item.Tdo_Name), arr.push(x);
-        // let final = concat(arr);
-        data.push({
-          name: item.Tdo_Name,
-          data: x,
+    const final_data = Temp_Data.map((item, index) => {
+      let counter = 0;
+      let townCounter = 0;
+      const { Tdo_Name = "", Tdo_Image = "", Tdo_Taluka = [] } = item || {};
+
+      Tdo_Taluka.forEach((x) => {
+        x.Taluka_Town.forEach((j) => {
+          counter = counter + j.Town_Projects.length;
         });
       });
-    });
-    setArrTaluka(data);
-  }
-  console.log("arrTaluka:", arrTaluka);
+      Tdo_Taluka.forEach((x) => {
+        townCounter = townCounter + x.Taluka_Town.length;
+      });
 
-  function renderItem(itemData) {
+      const Initial = Tdo_Taluka[0].Taluka_Name.split(" ");
+      if (Initial.length > 1) {
+        var Temp =
+          Initial[0].charAt(0).toUpperCase() +
+          Initial[1].charAt(0).toUpperCase();
+      } else {
+        var Temp =
+          Initial[0].charAt(0).toUpperCase() +
+          Initial[0].charAt(Initial[0].length / 2).toUpperCase();
+      }
+      // console.log("counter", counter, index);
+
+      const temp_object = {
+        profile: Tdo_Image == null ? Temp : "",
+        title: Tdo_Taluka[0]?.Taluka_Name ? Tdo_Taluka[0]?.Taluka_Name : "",
+        lable_one: townCounter,
+        lable_two: Tdo_Name ? Tdo_Name : "",
+        count: counter,
+        Key: "taluka_screen",
+      };
+      return temp_object;
+    });
+
+    Promise.all(final_data).then((response) => {
+      console.log("responce:", response);
+      setArrayData(response);
+    });
+  }
+  // console.log("arrTaluka:", arrTaluka);
+
+  function renderItem({ item, index }) {
     // console.log("itemData:", itemData);
-    return (
-      <TalukaList
-        Taluka_Name={itemData.item.data.Taluka_Name}
-        Taluka_Town={itemData.item.data.Taluka_Town}
-        Tdo_Name={itemData.item.name}
-      />
-    );
+    return <ListData item={item} index={index} />;
   }
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
-        <FlatList
+        {/* <FlatList
           data={arrTaluka}
           keyExtractor={(itm, inx) => String(inx)}
           renderItem={renderItem}
-        />
+        /> */}
       </View>
     </SafeAreaView>
   );

@@ -22,16 +22,45 @@ export default function TdoScreen() {
   }, []);
 
   function fetchData() {
-    setArrayData(Temp_Data);
+    const final_data = Temp_Data.map((item, index) => {
+      let counter = 0;
+      const { Tdo_Name = "", Tdo_Image = "", Tdo_Taluka = [] } = item || {};
+
+      Tdo_Taluka.forEach((x) => {
+        x.Taluka_Town.forEach((j) => {
+          counter = counter + j.Town_Projects.length;
+        });
+      });
+      const Initial = Tdo_Name.split(" ");
+      if (Initial.length > 1) {
+        var Temp =
+          Initial[0].charAt(0).toUpperCase() +
+          Initial[1].charAt(0).toUpperCase();
+      } else {
+        var Temp =
+          Initial[0].charAt(0).toUpperCase() +
+          Initial[0].charAt(Initial[0].length / 2).toUpperCase();
+      }
+      // console.log("counter", counter, index);
+
+      const temp_object = {
+        profile: Tdo_Image == null ? Temp : "",
+        title: Tdo_Name,
+        lable_one: Tdo_Taluka[0]?.Taluka_Name ? Tdo_Taluka[0]?.Taluka_Name : "",
+        lable_two: Tdo_Taluka[1]?.Taluka_Name ? Tdo_Taluka[1]?.Taluka_Name : "",
+        count: counter,
+        Key: "tdo-screen",
+      };
+      console.log("profile:", temp_object.profile);
+      return temp_object;
+    });
+
+    Promise.all(final_data).then((response) => {
+      setArrayData(response);
+    });
   }
-  function renderItem(itemData) {
-    return (
-      <ListData
-        Tdo_Name={itemData.item.Tdo_Name}
-        Tdo_Taluka={itemData.item.Tdo_Taluka}
-        Town_Projects={itemData.item.Town_Projects}
-      />
-    );
+  function renderItem({ item, index }) {
+    return <ListData item={item} index={index} />;
   }
 
   // function getLength() {
@@ -50,7 +79,7 @@ export default function TdoScreen() {
   //   });
   //   return counter;
   // }
-  console.log("ArrData:", arrData);
+  // console.log("ArrData:", arrData);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <FlatList
