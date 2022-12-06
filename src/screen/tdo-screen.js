@@ -1,19 +1,10 @@
-import {
-  FlatList,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import { scale } from "react-native-size-matters";
-import Svg, { Path, G } from "react-native-svg";
-import { GlobalStyles } from "../../constants/constColors";
-import { normalizeText } from "../../responsive-text";
-import MatIcon from "react-native-vector-icons/MaterialIcons";
-import ListData from "../../constants/tdo-list";
-import { Temp_Data } from "../../constants/temp-Data";
+import { SafeAreaView } from "react-native";
 import { useEffect, useState } from "react";
+// DummyData
+import { Temp_Data } from "../../constants/temp-Data";
+// component
+import ListData from "../components/datalistner/list-data";
+import CommonFlatList from "../components/flat-listner";
 export default function TdoScreen() {
   const [arrData, setArrayData] = useState([]);
 
@@ -51,7 +42,7 @@ export default function TdoScreen() {
         count: counter,
         Key: "tdo-screen",
       };
-      console.log("profile:", temp_object.profile);
+
       return temp_object;
     });
 
@@ -82,11 +73,7 @@ export default function TdoScreen() {
   // console.log("ArrData:", arrData);
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <FlatList
-        data={arrData}
-        renderItem={renderItem}
-        keyExtractor={(itm, inx) => String(inx)}
-      />
+      <CommonFlatList data={arrData} renderItem={renderItem} />
     </SafeAreaView>
   );
 }

@@ -300,7 +300,27 @@ export const Temp_Data = [
       {
         Taluka_Name: "Rajkot Rural",
         Taluka_Image: null,
-        Taluka_Town: [],
+        Taluka_Town: [
+          {
+            Town_Name: "Manavadar",
+            Town_Projects: [
+              // {
+              //   Project_Name: "Road Construction",
+              //   Project_Status: null,
+              //   Project_Status_Color: null,
+              //   Project_Status_Value: "20%",
+              //   Project_Due_Date: "28/10/20",
+              // },
+              // {
+              //   Project_Name: "Garden New Plant",
+              //   Project_Status: null,
+              //   Project_Status_Color: null,
+              //   Project_Status_Value: "79%",
+              //   Project_Due_Date: "30/05/20",
+              // },
+            ],
+          },
+        ],
       },
       {
         Taluka_Name: "Rajkot Urban",
