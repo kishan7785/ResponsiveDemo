@@ -8,24 +8,30 @@ import { Temp_Data } from "../../../constants/temp-Data";
 import ListData from "../../components/list-data/list-data";
 import CommonFlatList from "../../components/flat-listner";
 import Search from "../../components/search/search";
-import { useDispatch } from "react-redux";
-import { total_town } from "../../../Redux/Action";
+import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./styles";
 import { useFocusEffect } from "@react-navigation/native";
 export default function TownScreen() {
   const [search, setSearch] = useState("");
   const [arrTown, setArrTown] = useState([]);
   const [masterData, setMasterData] = useState([]);
-  const dispatch = useDispatch();
+  // Hooks
+  const MainData = useSelector((state) => state.mainReducer.TownArrData);
   // useEffect(() => {
-  //   fetchData();
+  //   // fetchData();
   // }, []);
-
   useFocusEffect(
     React.useCallback(() => {
-      fetchData();
-    }, [])
+      setArrTown(MainData);
+      setMasterData(MainData);
+      // fetchData();
+    }, [MainData])
   );
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     fetchData();
+  //   }, [])
+  // );
 
   function fetchData() {
     let data = [];

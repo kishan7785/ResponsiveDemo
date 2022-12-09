@@ -5,26 +5,32 @@ import AntIcon from "react-native-vector-icons/AntDesign";
 import { normalizeText } from "../../../responsive-text";
 import { Text, View, SafeAreaView, TextInput, StyleSheet } from "react-native";
 import ListData from "../../components/list-data/list-data";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Temp_Data } from "../../../constants/temp-Data";
 import CommonFlatList from "../../components/flat-listner";
 import { styles } from "./styles";
 import Search from "../../components/search/search";
-import { total_taluka } from "../../../Redux/Action";
 import { useFocusEffect } from "@react-navigation/native";
 export default function TalukaScreen() {
   const [arrTaluka, setArrTaluka] = useState([]);
   const [search, setSearch] = useState("");
   const [masterData, setMasterData] = useState([]);
+
+  //hooks
+  const MainData = useSelector((state) => state.mainReducer.TalukaArrData);
   const dispatch = useDispatch();
   // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  //   // fetchData();
+  //   setArrTaluka(MainData);
+  //   setMasterData(MainData);
+  // }, [MainData]);
 
   useFocusEffect(
     React.useCallback(() => {
-      fetchData();
-    }, [])
+      setArrTaluka(MainData);
+      setMasterData(MainData);
+      // fetchData();
+    }, [MainData])
   );
 
   function fetchData() {

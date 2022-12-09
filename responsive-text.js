@@ -4,7 +4,7 @@ const {
   width: SCREEN_WIDTH,
 } = Dimensions.get('window');
 
-console.log('SCREEN_WIDTH:',SCREEN_WIDTH);
+// console.log('SCREEN_WIDTH:',SCREEN_WIDTH);
 
 // based on iphone 5s's scale
 const scale = SCREEN_WIDTH / 320;

@@ -1,39 +1,83 @@
 import {
-  TOTAL_TDO,
-  TOTAL_TALUKA,
-  TOTAL_TOWN,
-  TOTAL_PROJECT,
+  TOTALTDO,
+  TOTALTALUKA,
+  TOTALTOWN,
+  TOTALPROJECT,
+  TDOARR,
+  TALUKAARRDATA,
+  TOWNARRDATA,
+  PROJECTARRDATA,
+  SELECTEDITEM,
 } from "../Action/action-list";
 const initialstate = {
-  T_tdo: 0,
-  T_taluka: 0,
-  T_town: 0,
-  T_project: 0,
+  TotalTdoCount: 0,
+  TotalTalukaCount: 0,
+  TotalTownCount: 0,
+  TotalProjectCount: 0,
+  TdoArrData: [],
+  TalukaArrData: [],
+  TownArrData: [],
+  ProjectArrData: [],
+  Items: [],
 };
 const mainReducer = (state = initialstate, action) => {
   switch (action.type) {
-    case TOTAL_TDO: {
+    case TOTALTDO: {
       // console.log("TOTAL_TDO in Reducer", action.payload);
       return {
-        T_tdo: action.payload,
+        ...state,
+        TotalTdoCount: action.payload,
       };
     }
-    case TOTAL_TALUKA: {
+    case TOTALTALUKA: {
       // console.log("TOTAL_TALUKA in Reducer", action.payload);
       return {
-        T_taluka: action.payload,
+        ...state,
+        TotalTalukaCount: action.payload,
       };
     }
-    case TOTAL_TOWN: {
+    case TOTALTOWN: {
       // console.log("TOTAL_TOWN in Reducer", action.payload);
       return {
-        T_town: action.payload,
+        ...state,
+        TotalTownCount: action.payload,
       };
     }
-    case TOTAL_PROJECT: {
+    case TOTALPROJECT: {
       // console.log("TOTAL_PROJECT in Reducer", action.payload);
       return {
-        T_project: action.payload,
+        ...state,
+        TotalProjectCount: action.payload,
+      };
+    }
+    case TDOARR: {
+      return {
+        ...state,
+        TdoArrData: action.payload,
+      };
+    }
+    case TALUKAARRDATA: {
+      return {
+        ...state,
+        TalukaArrData: action.payload,
+      };
+    }
+    case TOWNARRDATA: {
+      return {
+        ...state,
+        TownArrData: action.payload,
+      };
+    }
+    case PROJECTARRDATA: {
+      return {
+        ...state,
+        ProjectArrData: action.payload,
+      };
+    }
+    case SELECTEDITEM: {
+      return {
+        ...state,
+        Items: [...state.Items, action.payload],
       };
     }
     default:

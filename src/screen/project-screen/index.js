@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Text, View, SafeAreaView, TextInput, StyleSheet } from "react-native";
 import { scale } from "react-native-size-matters";
 import AntIcon from "react-native-vector-icons/AntDesign";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Temp_Data } from "../../../constants/temp-Data";
 import { total_project } from "../../../Redux/Action";
 import { normalizeText } from "../../../responsive-text";
@@ -16,15 +16,20 @@ export default function ProjectScreen() {
   const [arrProject, setArrProject] = useState([]);
   const [search, setSearch] = useState("");
   const [masterData, setMasterData] = useState([]);
-  const dispatch = useDispatch();
+  // Hooks
+  const MainData = useSelector((state) => state.mainReducer.ProjectArrData);
+
   // useEffect(() => {
-  //   fetchData();
+
+  //   // fetchData();
   // }, []);
 
   useFocusEffect(
     React.useCallback(() => {
-      fetchData();
-    }, [])
+      setArrProject(MainData);
+      setMasterData(MainData);
+      // fetchData();
+    }, [MainData])
   );
 
   function fetchData() {
