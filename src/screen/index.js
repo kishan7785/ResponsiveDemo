@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainHeader from "../components/main-header";
 import { GlobalStyles } from "../../constants/constColors";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -15,22 +15,27 @@ import ProjectScreen from "./project-screen";
 import { normalizeText } from "../../responsive-text";
 import { useSelector } from "react-redux";
 export default function Routes() {
-  const Total_Tdo = useSelector((state) => state.mainReducer.T_tdo);
-  const Total_Taluka = useSelector((state) => state.mainReducer.T_taluka);
-  const Total_Town = useSelector((state) => state.mainReducer.T_town);
-  const Total_Project = useSelector((state) => state.mainReducer.T_project);
-  console.log("TotalCount:", Total_Tdo);
   const { height } = Dimensions.get("window");
   const Stack = createNativeStackNavigator();
   const TopTab = createMaterialTopTabNavigator();
 
+  // useEffect(() => {}, []);
+
   function TopTabScreen() {
+    const total_tdo = useSelector((state) => state.mainReducer.T_tdo || 0);
+    const total_taluka = useSelector(
+      (state) => state.mainReducer.T_taluka || 0
+    );
+    const total_town = useSelector((state) => state.mainReducer.T_town || 0);
+    const total_project = useSelector(
+      (state) => state.mainReducer.T_project || 0
+    );
+
     return (
       <TopTab.Navigator
         screenOptions={{
-          //   tabBarItemStyle: {width: 100},
           tabBarLabelStyle: {
-            fontSize: normalizeText(12),
+            fontSize: normalizeText(10.5),
             fontWeight: "bold",
             color: "white",
             elevation: 10,
@@ -53,33 +58,33 @@ export default function Routes() {
           name={"Tab-Tdo"}
           component={TdoScreen}
           options={{
-            title: "TDO (" + Total_Tdo + ")",
+            title: `TDO ( ${total_tdo} )`,
           }}
         />
         <TopTab.Screen
           name={"Tab-Taluka"}
           component={TalukaScreen}
           options={{
-            title: "Taluka" + " (" + Total_Taluka + ")",
+            title: `Taluka( ${total_taluka} )`,
           }}
         />
         <TopTab.Screen
           name={"Tab-Town"}
           component={TownScreen}
           options={{
-            title: "Town" + " (" + Total_Town + ")",
+            title: `Town( ${total_town} )`,
           }}
         />
         <TopTab.Screen
           name={"Tab-Projects"}
           component={ProjectScreen}
           options={{
-            title: "Projects" + "(" + Total_Project + ")",
-            tabBarLabelStyle: {
-              fontSize: height < 684 ? scale(10) : scale(12),
-              fontWeight: "bold",
-              color: "white",
-            },
+            title: `Project( ${total_project} )`,
+            // tabBarLabelStyle: {
+            //   fontSize: height < 684 ? scale(10) : scale(12),
+            //   fontWeight: "bold",
+            //   color: "white",
+            // },
           }}
         />
       </TopTab.Navigator>
@@ -95,7 +100,7 @@ export default function Routes() {
           header: () => <MainHeader />,
         }}
       >
-        {/* <Stack.Screen name="Header" component={MainHeader} /> */}
+        <Stack.Screen name="Header" component={MainHeader} />
         <Stack.Screen name="Stack-Tdo" component={TdoScreen} />
         <Stack.Screen name="Stack-Taluka" component={TalukaScreen} />
         <Stack.Screen name="Stack-Town" component={TownScreen} />

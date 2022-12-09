@@ -1,22 +1,31 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { scale } from "react-native-size-matters";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import { normalizeText } from "../../../responsive-text";
 import { Text, View, SafeAreaView, TextInput, StyleSheet } from "react-native";
 import ListData from "../../components/list-data/list-data";
-
+import { useDispatch } from "react-redux";
 import { Temp_Data } from "../../../constants/temp-Data";
 import CommonFlatList from "../../components/flat-listner";
 import { styles } from "./styles";
 import Search from "../../components/search/search";
+import { total_taluka } from "../../../Redux/Action";
+import { useFocusEffect } from "@react-navigation/native";
 export default function TalukaScreen() {
   const [arrTaluka, setArrTaluka] = useState([]);
   const [search, setSearch] = useState("");
   const [masterData, setMasterData] = useState([]);
+  const dispatch = useDispatch();
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchData();
+    }, [])
+  );
 
   function fetchData() {
     let data = [];
@@ -54,11 +63,13 @@ export default function TalukaScreen() {
           key: "Taluka-screen",
         };
         data.push(temp_object);
-        // console.log("temp_object", temp_object);
       });
     });
-    setArrTaluka(data);
-    setMasterData(data);
+    Promise.all(data).then((response) => {
+      setArrTaluka(response);
+      setMasterData(response);
+      dispatch(total_taluka(data.length));
+    });
   }
   // console.log("arrTaluka:", arrTaluka);
   function searchFilterFunction(text) {
@@ -78,17 +89,17 @@ export default function TalukaScreen() {
       setSearch(text);
     }
   }
-  function renderItem({ item, index }) {
-    // console.log("itemData:", itemData);
-    return <ListData item={item} index={index} />;
-  }
+  // function renderItem({ item, index }) {
+  //   // console.log("itemData:", itemData);
+  //   return <ListData item={item} index={index} />;
+  // }
   return (
     <SafeAreaView style={styles.maincontainer}>
       <Search
         search={search}
         onChangeText={(text) => searchFilterFunction(text)}
       />
-      <CommonFlatList data={arrTaluka} renderItem={renderItem} />
+      <CommonFlatList data={arrTaluka} />
     </SafeAreaView>
   );
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { Text, View, SafeAreaView, TextInput, StyleSheet } from "react-native";
 import AntIcon from "react-native-vector-icons/AntDesign";
@@ -7,15 +8,24 @@ import { Temp_Data } from "../../../constants/temp-Data";
 import ListData from "../../components/list-data/list-data";
 import CommonFlatList from "../../components/flat-listner";
 import Search from "../../components/search/search";
+import { useDispatch } from "react-redux";
+import { total_town } from "../../../Redux/Action";
 import { styles } from "./styles";
+import { useFocusEffect } from "@react-navigation/native";
 export default function TownScreen() {
   const [search, setSearch] = useState("");
   const [arrTown, setArrTown] = useState([]);
   const [masterData, setMasterData] = useState([]);
+  const dispatch = useDispatch();
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchData();
+    }, [])
+  );
 
   function fetchData() {
     let data = [];
@@ -53,8 +63,11 @@ export default function TownScreen() {
         // console.log("temp_object", temp_object);
       });
     });
-    setArrTown(data);
-    setMasterData(data);
+    Promise.all(data).then((response) => {
+      setArrTown(response);
+      setMasterData(response);
+      dispatch(total_town(data.length));
+    });
   }
   function searchFilterFunction(text) {
     if (text) {
@@ -65,7 +78,7 @@ export default function TownScreen() {
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
-      console.log('newData',newData);
+      console.log("newData", newData);
       setArrTown(newData);
       setSearch(text);
     } else {
@@ -73,17 +86,17 @@ export default function TownScreen() {
       setSearch(text);
     }
   }
-  function renderItem({ item, index }) {
-    // console.log("itemData:", itemData);
-    return <ListData item={item} index={index} />;
-  }
+  // function renderItem({ item, index }) {
+  //   // console.log("itemData:", itemData);
+  //   return <ListData item={item} index={index} />;
+  // }
   return (
     <SafeAreaView style={styles.maincontainer}>
       <Search
         search={search}
         onChangeText={(text) => searchFilterFunction(text)}
       />
-      <CommonFlatList data={arrTown} renderItem={renderItem} />
+      <CommonFlatList data={arrTown} />
     </SafeAreaView>
   );
 }

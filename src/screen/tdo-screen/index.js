@@ -1,7 +1,7 @@
 import { SafeAreaView, View, TextInput, Text, StyleSheet } from "react-native";
 import { scale } from "react-native-size-matters";
 import { normalizeText } from "../../../responsive-text";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // DummyData
 import { Temp_Data } from "../../../constants/temp-Data";
 // component
@@ -12,14 +12,24 @@ import Search from "../../components/search/search";
 import styles from "./styles";
 import { total_tdo } from "../../../Redux/Action";
 import { useDispatch } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
 export default function TdoScreen() {
+  // Hooks
+  const dispatch = useDispatch();
+  // Local-state
   const [search, setSearch] = useState("");
   const [masterData, setMasterData] = useState([]);
   const [arrData, setArrayData] = useState([]);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    fetchData();
-  }, []);
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchData();
+    },[])
+  );
 
   function fetchData() {
     const final_data = Temp_Data.map((item, index) => {
@@ -58,7 +68,8 @@ export default function TdoScreen() {
     Promise.all(final_data).then((response) => {
       setArrayData(response);
       setMasterData(response);
-      dispatch(total_tdo(final_data.length));
+      // console.log('response.length',response.length);
+      dispatch(total_tdo(response.length));
     });
   }
 
@@ -80,9 +91,9 @@ export default function TdoScreen() {
     }
   }
 
-  function renderItem({ item, index }) {
-    return <ListData item={item} index={index} />;
-  }
+  // function renderItem({ item, index }) {
+  //   return <ListData item={item} index={index} />;
+  // }
 
   return (
     <SafeAreaView style={styles.maincontainer}>
@@ -90,7 +101,7 @@ export default function TdoScreen() {
         search={search}
         onChangeText={(text) => searchFilterFunction(text)}
       />
-      <CommonFlatList data={arrData} renderItem={renderItem} />
+      <CommonFlatList data={arrData} />
     </SafeAreaView>
   );
 }
