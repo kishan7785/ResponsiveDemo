@@ -1,6 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Text, View, SafeAreaView, TextInput, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  TextInput,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import { scale } from "react-native-size-matters";
 import { normalizeText } from "../../../responsive-text";
@@ -11,15 +18,82 @@ import Search from "../../components/search/search";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./styles";
 import { useFocusEffect } from "@react-navigation/native";
+import {
+  itemSelection,
+  talukaArrData,
+  total_taluka,
+  total_town,
+  townArrData,
+} from "../../../Redux/Action";
 export default function TownScreen() {
   const [search, setSearch] = useState("");
   const [arrTown, setArrTown] = useState([]);
   const [masterData, setMasterData] = useState([]);
+  const [searchlabel, setSearchLabel] = useState(false);
+  const [lableName, setLableName] = useState();
   // Hooks
   const MainData = useSelector((state) => state.mainReducer.TownArrData);
+  const TempStoredItem = useSelector((state) => state.mainReducer.Items);
+  const dispatch = useDispatch();
   // useEffect(() => {
   //   // fetchData();
   // }, []);
+  useEffect(() => {
+    if (TempStoredItem.length == 0) {
+      console.log(searchlabel);
+    } else {
+      setSearchLabel(true);
+      console.log(searchlabel);
+      setLableName(TempStoredItem);
+      const newData = Temp_Data.filter((item) => {
+        return item.Tdo_Name == TempStoredItem;
+      });
+      // console.log("newData:", newData);
+
+      let data = [];
+
+      newData?.forEach((item, index) => {
+        item?.Tdo_Taluka.forEach((x, i) => {
+          const { Taluka_Name = "" } = x || {};
+
+          x?.Taluka_Town.forEach((j, inx) => {
+            let counter = 0;
+            counter = counter + j.Town_Projects.length;
+            const { Town_Name = "" } = j || {};
+
+            const Initial = Town_Name.split(" ");
+            if (Initial.length > 1) {
+              var Temp =
+                Initial[0].charAt(0).toUpperCase() +
+                Initial[1].charAt(0).toUpperCase();
+            } else {
+              var Temp =
+                Initial[0].charAt(0).toUpperCase() +
+                Initial[0].charAt(Initial[0].length / 2).toUpperCase();
+            }
+            const temp_object = {
+              profile: Temp,
+              title: Town_Name,
+              lable_one: Taluka_Name,
+              count: counter,
+              key: "Town-screen",
+            };
+            console.log("temp_object", temp_object);
+            data.push(temp_object);
+          });
+
+          // console.log("counter:", counter);
+
+        });
+      });
+
+      Promise.all(data).then((response) => {
+        dispatch(townArrData(response));
+        dispatch(total_town(data.length));
+      });
+    }
+  }, [TempStoredItem]);
+
   useFocusEffect(
     React.useCallback(() => {
       setArrTown(MainData);
@@ -70,8 +144,7 @@ export default function TownScreen() {
       });
     });
     Promise.all(data).then((response) => {
-      setArrTown(response);
-      setMasterData(response);
+      dispatch(townArrData(response));
       dispatch(total_town(data.length));
     });
   }
@@ -92,16 +165,59 @@ export default function TownScreen() {
       setSearch(text);
     }
   }
-  // function renderItem({ item, index }) {
-  //   // console.log("itemData:", itemData);
-  //   return <ListData item={item} index={index} />;
-  // }
+  function cancleSelectionPressHandler() {
+    setSearchLabel(false);
+    dispatch(itemSelection(""));
+    fetchData();
+  }
   return (
     <SafeAreaView style={styles.maincontainer}>
       <Search
         search={search}
         onChangeText={(text) => searchFilterFunction(text)}
       />
+      {searchlabel ? (
+        <Pressable onPress={cancleSelectionPressHandler}>
+          <View
+            style={{
+              width: "100%",
+              height: scale(40),
+              // backgroundColor: "#ccc",
+              flexDirection: "row",
+              alignItems: "center",
+              paddingHorizontal: scale(20),
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: "#FEF7E5",
+                // justifyContent: "center",
+                borderRadius: scale(5),
+                padding: scale(5),
+                marginRight: scale(8),
+                // paddingEnd: scale(25),
+                height: scale(20),
+                alignItems: "center",
+                elevation: 3,
+                flexDirection: "row",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: normalizeText(9),
+                  color: "black",
+                  justifyContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                {lableName}
+                {"    "}
+              </Text>
+              <AntIcon name="close" size={normalizeText(9)} color="black" />
+            </View>
+          </View>
+        </Pressable>
+      ) : null}
       <CommonFlatList data={arrTown} />
     </SafeAreaView>
   );

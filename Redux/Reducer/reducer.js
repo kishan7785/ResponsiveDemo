@@ -77,7 +77,7 @@ const mainReducer = (state = initialstate, action) => {
     case SELECTEDITEM: {
       return {
         ...state,
-        Items: [...state.Items, action.payload],
+        Items: action.payload,
       };
     }
     default:
