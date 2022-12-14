@@ -40,57 +40,12 @@ export default function TownScreen() {
   // }, []);
   useEffect(() => {
     if (TempStoredItem.length == 0) {
-      console.log(searchlabel);
+      // console.log(searchlabel);
     } else {
       setSearchLabel(true);
-      console.log(searchlabel);
+      // console.log(searchlabel);
       setLableName(TempStoredItem);
-      const newData = Temp_Data.filter((item) => {
-        return item.Tdo_Name == TempStoredItem;
-      });
-      // console.log("newData:", newData);
-
-      let data = [];
-
-      newData?.forEach((item, index) => {
-        item?.Tdo_Taluka.forEach((x, i) => {
-          const { Taluka_Name = "" } = x || {};
-
-          x?.Taluka_Town.forEach((j, inx) => {
-            let counter = 0;
-            counter = counter + j.Town_Projects.length;
-            const { Town_Name = "" } = j || {};
-
-            const Initial = Town_Name.split(" ");
-            if (Initial.length > 1) {
-              var Temp =
-                Initial[0].charAt(0).toUpperCase() +
-                Initial[1].charAt(0).toUpperCase();
-            } else {
-              var Temp =
-                Initial[0].charAt(0).toUpperCase() +
-                Initial[0].charAt(Initial[0].length / 2).toUpperCase();
-            }
-            const temp_object = {
-              profile: Temp,
-              title: Town_Name,
-              lable_one: Taluka_Name,
-              count: counter,
-              key: "Town-screen",
-            };
-            console.log("temp_object", temp_object);
-            data.push(temp_object);
-          });
-
-          // console.log("counter:", counter);
-
-        });
-      });
-
-      Promise.all(data).then((response) => {
-        dispatch(townArrData(response));
-        dispatch(total_town(data.length));
-      });
+     
     }
   }, [TempStoredItem]);
 

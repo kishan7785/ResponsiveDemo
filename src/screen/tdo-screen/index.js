@@ -28,12 +28,13 @@ import {
 } from "../../../Redux/Action";
 import { useDispatch, useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
+import { GET, POST, trail_urls } from "../../service/api";
 export default function TdoScreen() {
   // Hooks
   const MainData = useSelector((state) => state.mainReducer.TdoArrData);
   const TempStoredItem = useSelector((state) => state.mainReducer.Items);
 
-  console.log("tdo_screen: useSelector :TempStoredItem", TempStoredItem);
+  // console.log("tdo_screen: useSelector :TempStoredItem", TempStoredItem);
   const dispatch = useDispatch();
   // Local-state
   const [searchlabel, setSearchLabel] = useState(false);
@@ -46,66 +47,9 @@ export default function TdoScreen() {
   // console.log("arrData", arrData);
   useEffect(() => {
     if (TempStoredItem.length == 0) {
-      console.log(searchlabel);
     } else {
       setSearchLabel(true);
-      console.log(searchlabel);
       setLableName(TempStoredItem);
-      const newData = Temp_Data.filter((item) => {
-        return item.Tdo_Name == TempStoredItem;
-      });
-      // console.log("newData:", newData);
-
-      const final_data = newData.map((item, index) => {
-        let counter = 0;
-        let talukaCounter = 0;
-        let townCount = 0;
-        const { Tdo_Name = "", Tdo_Image = "", Tdo_Taluka = [] } = item || {};
-        talukaCounter = talukaCounter = item.Tdo_Taluka.length;
-        Tdo_Taluka.forEach((x) => {
-          townCount = townCount + x.Taluka_Town.length;
-          x.Taluka_Town.forEach((j) => {
-            counter = counter + j.Town_Projects.length;
-          });
-        });
-        const Initial = Tdo_Name.split(" ");
-        if (Initial.length > 1) {
-          var Temp =
-            Initial[0].charAt(0).toUpperCase() +
-            Initial[1].charAt(0).toUpperCase();
-        } else {
-          var Temp =
-            Initial[0].charAt(0).toUpperCase() +
-            Initial[0].charAt(Initial[0].length / 2).toUpperCase();
-        }
-        // console.log("counter", counter, index);
-        const temp_object = {
-          profile: Tdo_Image == null ? Temp : "",
-          title: Tdo_Name,
-          lable_one: Tdo_Taluka[0]?.Taluka_Name
-            ? Tdo_Taluka[0]?.Taluka_Name
-            : "",
-          lable_two: Tdo_Taluka[1]?.Taluka_Name
-            ? Tdo_Taluka[1]?.Taluka_Name
-            : "",
-          count: counter,
-          Key: "tdo-screen",
-          talukaCounter: talukaCounter,
-          townCount: townCount,
-        };
-        return temp_object;
-      });
-      Promise.all(final_data).then((response) => {
-        // console.log("response.length", response.length);
-        // console.log("response:", response);
-        // console.log('response.length',response.length);
-        dispatch(tdoArrData(response));
-        dispatch(total_tdo(response.length));
-        dispatch(total_taluka(response[0].talukaCounter));
-        dispatch(total_town(response[0].townCount));
-        dispatch(total_project(response[0].count));
-      });
-      // console.log("final_data:", final_data);
     }
   }, [TempStoredItem]);
 
@@ -121,6 +65,33 @@ export default function TdoScreen() {
   //     fetchData();
   //   }, [])
   // );
+
+  useEffect(() => {
+    fetchDataFromServer();
+  }, []);
+
+  async function fetchDataFromServer() {
+    // const body = new FormData();
+    // body.append("name", "Good one-II");
+    // body.append("location", "Baroda");
+    // body.append("ball_type", "red");
+    // body.append("about", "This is about team 6");
+
+    // // Raw data
+    // const raw_body = {
+    //   key1: "value1",
+    //   key2: "value2",
+    // };
+
+    // const res = await POST("TDO_RESPONCE_ERROR");
+    // const res = await GET(trail_urls.getlist, "TDO_RESPONSE_ERROR");
+    // console.log("Api Response TDO", res);
+
+
+
+    // console.log("res:", res.data);
+    // setLoading(false)z
+  }
 
   function fetchData() {
     const final_data = Temp_Data.map((item, index) => {

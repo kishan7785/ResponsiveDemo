@@ -1,7 +1,7 @@
 import react from "react";
 import { FlatList, View, Text } from "react-native";
 import { useDispatch } from "react-redux";
-import { itemSelection } from "../../Redux/Action";
+import { sortDataforTdo } from "../../Redux/Action";
 import ListData from "./list-data/list-data";
 const CommonFlatList = ({ data }) => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const CommonFlatList = ({ data }) => {
         item={item}
         index={index}
         onPress={() => {
-          dispatch(itemSelection(item.title));
+          dispatch(sortDataforTdo(item.title));
         }}
       />
     );
