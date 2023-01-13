@@ -24,6 +24,8 @@ import {
   total_town,
   total_project,
 } from "../../Redux/Action";
+import CommonFlatList from "../components/flat-listner";
+import ProjectDetailScreen from "./project-detail";
 export default function Routes() {
   const Stack = createNativeStackNavigator();
   const TopTab = createMaterialTopTabNavigator();
@@ -281,6 +283,12 @@ export default function Routes() {
         <Stack.Screen name="Stack-Town" component={TownScreen} />
         <Stack.Screen name="Stack-Projects" component={ProjectScreen} />
         <Stack.Screen name="TopBarTab" component={TopTabScreen} />
+        <Stack.Screen name="commonFlatlist" component={CommonFlatList} />
+        <Stack.Screen
+          name="projectDetailScreen"
+          component={ProjectDetailScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { itemSelection } from "../../../Redux/Action";
 
-export default function ListData({ item = {}, index = -1,onPress }) {
+export default function ListData({ item = {}, index = -1, onPress }) {
   // HOOKS
   const dispatch = useDispatch;
   const [seletctItem, setSelectItem] = useState(false);
@@ -39,9 +39,7 @@ export default function ListData({ item = {}, index = -1,onPress }) {
     console.log("Title:", title);
   }
   return (
-    <Pressable
-      onPress={onPress}
-    >
+    <Pressable onPress={onPress}>
       <View style={styles.main_container}>
         <View style={styles.innerStyle}>
           <View style={styles.profile_container}>

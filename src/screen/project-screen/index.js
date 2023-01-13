@@ -8,6 +8,7 @@ import {
   TextInput,
   StyleSheet,
   Pressable,
+  TouchableOpacity
 } from "react-native";
 import { scale } from "react-native-size-matters";
 import AntIcon from "react-native-vector-icons/AntDesign";
@@ -25,7 +26,9 @@ import CommonFlatList from "../../components/flat-listner";
 import ListData from "../../components/list-data/list-data";
 import Search from "../../components/search/search";
 import { styles } from "./styles";
-export default function ProjectScreen() {
+
+
+export default function ProjectScreen({navigation}) {
   const [arrProject, setArrProject] = useState([]);
   const [search, setSearch] = useState("");
   const [masterData, setMasterData] = useState([]);
@@ -43,7 +46,6 @@ export default function ProjectScreen() {
       setSearchLabel(true);
       // console.log(searchlabel);
       setLableName(TempStoredItem);
-     
     }
   }, [TempStoredItem]);
 
@@ -118,7 +120,7 @@ export default function ProjectScreen() {
         search={search}
         onChangeText={(text) => searchFilterFunction(text)}
       />
-    {searchlabel ? (
+      {searchlabel ? (
         <Pressable onPress={cancleSelectionPressHandler}>
           <View
             style={{
@@ -160,7 +162,7 @@ export default function ProjectScreen() {
           </View>
         </Pressable>
       ) : null}
-      <CommonFlatList data={arrProject} />
+        <CommonFlatList data={arrProject} navigation={navigation}/>
     </SafeAreaView>
   );
 }
