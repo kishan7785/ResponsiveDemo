@@ -5,5 +5,6 @@ export const GlobalStyles = {
       lightGreen: '#6d8241',
       error50: '#fa1807',
       warn50:'#fcba03',
+      light_mainC:'#FEF7E5',
     },
   };

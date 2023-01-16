@@ -163,6 +163,8 @@ export default function Routes() {
   function fetchProjectData() {
     let data = [];
     Temp_Data.forEach((item, index) => {
+      const { Tdo_Name = "" } = item || {};
+
       item?.Tdo_Taluka.forEach((x, i) => {
         const { Taluka_Name = "" } = x || {};
 
@@ -180,6 +182,7 @@ export default function Routes() {
               title: Project_Name,
               lable_one: combine,
               lable_two: Project_Due_Date,
+              Tdo_Name: Tdo_Name,
 
               key: "Project-screen",
             };

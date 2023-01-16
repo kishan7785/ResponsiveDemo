@@ -1,5 +1,14 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+} from "react-native";
+import React, { useState } from "react";
+import Modal from "react-native-modal";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import { normalizeText } from "../../../responsive-text";
 import { scale } from "react-native-size-matters";
@@ -8,17 +17,39 @@ import ProjectDetailFlexBox from "../../components/projectDetailFlexBox";
 import { GlobalStyles } from "../../../constants/constColors";
 const ProjectDetailScreen = ({ route, navigation }) => {
   const { item } = route.params;
-  console.log("item:", item);
+  // console.log("item:", item);
+  const {
+    title = "",
+    profile = "",
+    lable_one = "",
+    lable_two = "",
+    count = -1,
+    key = "",
+    Tdo_Name = "",
+  } = item;
+
+  //stats
+  const [togglemodal, setToggleModal] = useState(false);
+
+  function updatePressHandler() {
+    setToggleModal(true);
+  }
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} bounces={true}>
       <View style={styles.container}>
         <View style={styles.backTxtcontainer}>
-          <AntIcon
-            name={"arrowleft"}
-            size={normalizeText(16)}
-            color={"black"}
-          />
+          <Pressable
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            <AntIcon
+              name={"arrowleft"}
+              size={normalizeText(16)}
+              color={"black"}
+            />
+          </Pressable>
           <Text
             style={{
               color: "black",
@@ -59,11 +90,11 @@ const ProjectDetailScreen = ({ route, navigation }) => {
                 color: "black",
               }}
             >
-              36%
+              {profile}
             </Text>
           </View>
           <View style={styles.titlecontainer}>
-            <Text style={styles.title}>Road Construction</Text>
+            <Text style={styles.title}>{title}</Text>
             <Text
               style={{
                 color: "#AEAEAE",
@@ -77,7 +108,7 @@ const ProjectDetailScreen = ({ route, navigation }) => {
             </Text>
           </View>
           <View style={{}}>
-            <CustomButton>Update</CustomButton>
+            <CustomButton onpress={updatePressHandler}>Update</CustomButton>
           </View>
           <View style={{ position: "absolute", alignItems: "center" }}>
             <Image
@@ -137,7 +168,7 @@ const ProjectDetailScreen = ({ route, navigation }) => {
           </Text>
         </View>
 
-        <ProjectDetailFlexBox />
+        <ProjectDetailFlexBox item={item} />
         <View
           style={{
             height: scale(53),
@@ -173,7 +204,7 @@ const ProjectDetailScreen = ({ route, navigation }) => {
         </View>
 
         {/* All-Activities */}
-        <View style={{ height: scale(200), width: "100%" }}>
+        <View style={{ width: "100%" }}>
           <View
             style={{
               flexDirection: "row",
@@ -209,22 +240,379 @@ const ProjectDetailScreen = ({ route, navigation }) => {
                   marginLeft: scale(20),
                 }}
               />
-              <View style={{ position: "absolute",justifyContent:'center',alignItems:'center' }}>
+
+              <View
+                style={{
+                  position: "absolute",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <Text
                   style={{
                     fontSize: normalizeText(12),
                     fontWeight: "bold",
                     color: "black",
-                    textAlign:'center',
+                    textAlign: "center",
                     marginLeft: scale(20),
                   }}
                 >
-                  36%
+                  {profile}
                 </Text>
               </View>
             </View>
           </View>
+          <View style={{ flexDirection: "row" }}>
+            <Image
+              source={require("../../../assets/work.jpg")}
+              style={{
+                height: scale(60),
+                width: scale(60),
+                borderRadius: scale(5),
+                borderColor: "#ccc",
+                borderWidth: scale(1),
+                marginRight: scale(10),
+              }}
+            />
+            <Image
+              source={require("../../../assets/work.jpg")}
+              style={{
+                height: scale(60),
+                width: scale(60),
+                borderRadius: scale(5),
+                borderColor: "#ccc",
+                borderWidth: scale(1),
+                marginRight: scale(10),
+              }}
+            />
+            <Image
+              source={require("../../../assets/work.jpg")}
+              style={{
+                height: scale(60),
+                width: scale(60),
+                borderRadius: scale(5),
+                borderColor: "#ccc",
+                borderWidth: scale(1),
+                marginRight: scale(10),
+              }}
+            />
+            <Image
+              source={require("../../../assets/work.jpg")}
+              style={{
+                height: scale(60),
+                width: scale(60),
+                borderRadius: scale(5),
+                borderColor: "#ccc",
+                borderWidth: scale(1),
+                marginRight: scale(10),
+              }}
+            />
+          </View>
+          <View
+            style={{
+              marginVertical: scale(15),
+            }}
+          >
+            <Text
+              style={{
+                fontSize: normalizeText(12),
+                fontWeight: "400",
+                color: "black",
+              }}
+            >
+              Updated on 16/07/19 , 1:08 AM
+            </Text>
+          </View>
+          <View
+            style={{ borderBottomWidth: scale(1), borderColor: "#ccc" }}
+          ></View>
         </View>
+        <View style={{ width: "100%" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "70%",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                marginVertical: scale(10),
+                fontSize: normalizeText(12),
+                color: " #AEAEAE",
+              }}
+            >
+              Lorem ipsum dolor sit amet consectetur. Mi dictumst porttitor at
+              tincidunt Nam molestie.
+            </Text>
+
+            <View
+              style={{
+                width: "30%",
+                marginLeft: scale(28),
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                source={require("../../../assets/Vector.png")}
+                style={{
+                  height: scale(40),
+                  width: scale(40),
+                  justifyContent: "flex-end",
+                  marginLeft: scale(20),
+                }}
+              />
+
+              <View
+                style={{
+                  position: "absolute",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: normalizeText(12),
+                    fontWeight: "bold",
+                    color: "black",
+                    textAlign: "center",
+                    marginLeft: scale(20),
+                  }}
+                >
+                  {profile}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Image
+              source={require("../../../assets/work.jpg")}
+              style={{
+                height: scale(60),
+                width: scale(60),
+                borderRadius: scale(5),
+                borderColor: "#ccc",
+                borderWidth: scale(1),
+                marginRight: scale(10),
+              }}
+            />
+            <Image
+              source={require("../../../assets/work.jpg")}
+              style={{
+                height: scale(60),
+                width: scale(60),
+                borderRadius: scale(5),
+                borderColor: "#ccc",
+                borderWidth: scale(1),
+                marginRight: scale(10),
+              }}
+            />
+            <Image
+              source={require("../../../assets/work.jpg")}
+              style={{
+                height: scale(60),
+                width: scale(60),
+                borderRadius: scale(5),
+                borderColor: "#ccc",
+                borderWidth: scale(1),
+                marginRight: scale(10),
+              }}
+            />
+            <Image
+              source={require("../../../assets/work.jpg")}
+              style={{
+                height: scale(60),
+                width: scale(60),
+                borderRadius: scale(5),
+                borderColor: "#ccc",
+                borderWidth: scale(1),
+                marginRight: scale(10),
+              }}
+            />
+          </View>
+          <View
+            style={{
+              marginVertical: scale(15),
+            }}
+          >
+            <Text
+              style={{
+                fontSize: normalizeText(12),
+                fontWeight: "400",
+                color: "black",
+              }}
+            >
+              Updated on 16/07/19 , 1:08 AM
+            </Text>
+          </View>
+          <View
+            style={{ borderBottomWidth: scale(1), borderColor: "#ccc" }}
+          ></View>
+        </View>
+        <Modal
+          animationType={"slide"}
+          transparent={true}
+          visible={togglemodal}
+          onRequestClose={() => {
+            setToggleModal(false);
+          }}
+          backdropOpacity={.5}
+          style={{margin:0}}
+          
+        >
+          <View
+            style={{
+              height: "60%",
+              width: "100%",
+              borderTopStartRadius: scale(10),
+              borderTopEndRadius: scale(10),
+              alignSelf: "flex-end",
+              marginTop: "65%",
+              elevation: 5,
+              backgroundColor: "#fff",
+            }}
+          >
+            <View
+              style={{
+                height: 53,
+                width: "100%",
+                flexDirection: "row",
+                alignItems: "center",
+                backgroundColor: GlobalStyles.colors.light_mainC,
+                borderTopStartRadius: scale(10),
+                borderTopEndRadius: scale(10),
+                paddingHorizontal: scale(20),
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: normalizeText(14),
+                  fontWeight: "bold",
+                  // color: "black",
+                  color: "#000",
+                  justifyContent: "flex-start",
+                }}
+              >
+                Update Project
+              </Text>
+              <Pressable
+                onPress={() => {
+                  setToggleModal(false);
+                }}
+              >
+                <AntIcon name={"close"} size={normalizeText(18)} />
+              </Pressable>
+            </View>
+            <ScrollView>
+              <View style={{ padding: scale(20) }}>
+                <Text
+                  style={{
+                    fontSize: normalizeText(12),
+                    fontWeight: "600",
+                    color: "#000",
+                  }}
+                >
+                  Description
+                </Text>
+                <View
+                  style={{
+                    height: scale(80),
+                    width: "100%",
+                    // alignSelf: "center",
+                    borderRadius: scale(5),
+                    borderColor: "#d0d0d0",
+                    borderWidth: 1,
+                    // textAlign: "justify",
+                    marginVertical: scale(5),
+                  }}
+                >
+                  <TextInput multiline={true} style={{fontSize:normalizeText(16),flex:1}}/>
+                </View>
+                <Text
+                  style={{
+                    fontSize: normalizeText(12),
+                    fontWeight: "600",
+                    color: "#000",
+                  }}
+                >
+                  Upload Image
+                </Text>
+                <View
+                  style={{
+                    marginVertical: scale(5),
+                    flexDirection: "row",
+                    width: "100%",
+                    // backgroundColor: "red",
+                  }}
+                >
+                  <View
+                    style={{
+                      height: scale(60),
+                      width: scale(60),
+                      borderRadius: scale(5),
+                      borderStyle: "dashed",
+                      borderColor: "#ccc",
+                      borderWidth: 1,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <AntIcon
+                      name="plus"
+                      size={normalizeText(16)}
+                      color={"#ccc"}
+                    />
+                  </View>
+                </View>
+                <Text
+                  style={{
+                    fontSize: normalizeText(12),
+                    color: "#000",
+                    fontWeight: "600",
+                    marginBottom: scale(10),
+                  }}
+                >
+                  Progress
+                </Text>
+                <View
+                  style={{
+                    backgroundColor: GlobalStyles.colors.light_mainC,
+                    flexDirection: "row",
+                    borderRadius: scale(5),
+                    marginBottom: scale(20),
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    paddingHorizontal: scale(20),
+                    height: scale(48),
+                  }}
+                >
+                  <AntIcon
+                    name="minussquareo"
+                    size={normalizeText(20)}
+                    color="#000"
+                  />
+                  <Text
+                    style={{
+                      color: GlobalStyles.colors.mainC,
+                      fontSize: normalizeText(20),
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {profile}
+                  </Text>
+                  <AntIcon
+                    name="plussquareo"
+                    size={normalizeText(20)}
+                    color="#000"
+                  />
+                </View>
+                <CustomButton>Update</CustomButton>
+              </View>
+            </ScrollView>
+          </View>
+        </Modal>
       </View>
     </ScrollView>
   );
@@ -251,6 +639,7 @@ const styles = StyleSheet.create({
   titlecontainer: {
     paddingHorizontal: scale(10),
     marginTop: scale(-20),
-    Width: "60%",
+    maxWidth: "60%",
+    minWidth: "55%",
   },
 });
